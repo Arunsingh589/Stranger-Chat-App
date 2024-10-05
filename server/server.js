@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://stranger-chat-application-frontend.vercel.app/",
         methods: ["GET", "PUT"],
         credentials: true
     }
