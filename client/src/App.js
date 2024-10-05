@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
-
+import axios from 'axios'
 const socket = io.connect("http://localhost:5000");
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   const [showChat, setShowChat] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");  // State for error message
-
+  axios.defaults.withCredentials = true;
   // Function to join a chat room
   const joinChat = () => {
     if (username.length < 4) {
@@ -22,6 +22,7 @@ const App = () => {
     } else {
       setErrorMessage("");  // Clear error message if everything is valid
       socket.emit("join_room", { username, room });
+      axios.post('https://stranger-chat-application-api.vercel.app/register', { username, room })
       setShowChat(true);
     }
   };
