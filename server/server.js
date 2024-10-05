@@ -10,10 +10,15 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
-        methods: ["GET", "PUT"]
+        methods: ["GET", "PUT"],
+        credentials: true
     }
 });
 
+
+app.get("/", (req, res) => {
+    res.json("Hello");
+})
 
 const users = {};
 
