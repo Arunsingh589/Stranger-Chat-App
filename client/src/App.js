@@ -2,17 +2,24 @@ import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
-import axios from 'axios'
-const socket = io.connect("http://localhost:5000");
+import axios from 'axios';
+
+// Dynamically choose the backend URL based on environment
+const SOCKET_URL = process.env.NODE_ENV === "production"
+  ? "https://stranger-chat-application-api.vercel.app"  // Deployed backend URL
+  : "http://localhost:5000"; // Local development URL
+
+const socket = io.connect(SOCKET_URL);
 
 const App = () => {
-
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");  // State for error message
+  const [errorMessage, setErrorMessage] = useState("");
+
   axios.defaults.withCredentials = true;
+
   // Function to join a chat room
   const joinChat = () => {
     if (username.length < 4) {
@@ -22,25 +29,25 @@ const App = () => {
     } else {
       setErrorMessage("");  // Clear error message if everything is valid
       socket.emit("join_room", { username, room });
-      axios.post('https://stranger-chat-application-api.vercel.app/register', { username, room })
+      axios.post(`${SOCKET_URL}/register`, { username, room });
       setShowChat(true);
     }
   };
 
   // Leave chat function
   const leaveChat = () => {
-    socket.emit("leave_room", { username, room }); // Emit leave room event to the server
-    setShowChat(false); // Set back to login screen
+    socket.emit("leave_room", { username, room });
+    setShowChat(false);
   };
 
   // Listen for updates to the online users list
   useEffect(() => {
     socket.on("update_users", (users) => {
-      setOnlineUsers(users);  // Update the online users list
+      setOnlineUsers(users);
     });
 
     return () => {
-      socket.off("update_users");  // Clean up the event listener when the component unmounts
+      socket.off("update_users");
     };
   }, []);
 
