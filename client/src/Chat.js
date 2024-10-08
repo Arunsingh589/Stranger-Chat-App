@@ -35,7 +35,19 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
 
     useEffect(() => {
         const receiveMsg = (data) => {
-            setMessageList((list) => [...list, data]);
+            if (data.username === "System") {
+                // Append system messages distinctly
+                setMessageList((list) => [...list, {
+                    id: data.id,
+                    author: data.username,
+                    message: data.message,
+                    time: data.time,
+                    isSystem: true // Mark this message as a system message
+                }]);
+            } else {
+                // Regular user message
+                setMessageList((list) => [...list, data]);
+            }
         }
         socket.on("receive_message", receiveMsg);
         return () => {
@@ -121,23 +133,30 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                     <div className='absolute inset-x-0 top-0 bottom-20 overflow-y-auto p-4 z-20 space-y-4 scrollbar'>
                         {messageList.map((data, index) => (
                             <div
-                                ref={index === messageList.length - 1 ? lastMessageRef : null}  // Set ref on the last message
-                                key={data.id} className={`flex ${username === data.author ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[70%] px-7 py-2  ${username === data.author ? 'bg-yellow-400 text-black rounded-l-full' : 'bg-blue-500 rounded-r-full text-white'}`}>
-                                    {/* Username at the start of the message */}
-                                    <div className="flex justify-between items-center">
-                                        <p className="text-sm font-bold">{data.author}</p> {/* Username inside the color field */}
-                                    </div>
-
-                                    {/* Message content and time on the same line */}
-                                    <div className="flex justify-between items-center mt-1 break-words whitespace-pre-wrap">
-                                        <p className="text-lg flex-grow">{data.message}</p> {/* Message content */}
-                                        <p className="text-[11px] ml-4 whitespace-nowrap mt-2">{data.time}</p> {/* Time aligned to the right */}
-                                    </div>
+                                key={data}
+                                ref={index === messageList.length - 1 ? lastMessageRef : null}
+                                className={`flex ${data.isSystem ? 'justify-center' : (username === data.author ? 'justify-end' : 'justify-start')}`}>
+                                <div className={`max-w-[70%] px-6 md:px-7 py-2 ${data.isSystem ? 'bg-[#128C7E] text-white text-center rounded-full' : (username === data.author ? 'bg-[#DCF8C6] text-black rounded-l-full' : 'bg-[#f2f0ed] rounded-r-full text-black')}`}>
+                                    {/* Render message without author for system messages */}
+                                    {data.isSystem ? (
+                                        <p className="text-sm md:text-lg">{data.message}</p> // Centered system message
+                                    ) : (
+                                        <>
+                                            <div className="flex justify-between items-center">
+                                                <p className="text-sm font-bold">{data.author}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center mt-1 break-words whitespace-pre-wrap">
+                                                <p className="text-sm md:text-lg flex-grow">{data.message}</p>
+                                                <p className="text-[11px] ml-4 whitespace-nowrap mt-2">{data.time}</p>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         ))}
                     </div>
+
+
 
 
 
