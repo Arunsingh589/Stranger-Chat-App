@@ -10,15 +10,10 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
-        methods: ["GET", "PUT"],
-        credentials: true
+        methods: ["GET", "PUT"]
     }
 });
 
-
-app.get("/", (req, res) => {
-    res.json("Hello");
-})
 
 const users = {};
 
@@ -31,6 +26,10 @@ io.on("connection", (socket) => {
         console.log(`User ${username} with ID ${socket.id} joined room: ${room}`);
 
         users[socket.id] = { username, room };
+
+        // / Emit a system message to notify others in the room
+        const systemMessage = { username: "System", message: `${username} has joined the chat.` };
+        io.to(room).emit("receive_message", systemMessage);
 
         // Emit updated user list to all clients in the room
         io.to(room).emit("update_users", Object.values(users).filter(user => user.room === room));
@@ -45,6 +44,10 @@ io.on("connection", (socket) => {
 
         // Remove the user from the users object
         delete users[socket.id];
+
+        // / Emit a system message to notify others in the room
+        const systemMessage = { username: "System", message: `${username} has left the chat.` };
+        io.to(room).emit("receive_message", systemMessage);
 
         // Emit the updated list of users in the room
         io.to(room).emit("update_users", Object.values(users).filter(user => user.room === room));
