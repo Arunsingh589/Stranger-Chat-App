@@ -5,13 +5,14 @@ import Chat from './Chat';
 
 const socket = io.connect("http://localhost:5000");
 
-const App = () => {
 
+const App = () => {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");  // State for error message
+
 
   // Function to join a chat room
   const joinChat = () => {
@@ -28,18 +29,18 @@ const App = () => {
 
   // Leave chat function
   const leaveChat = () => {
-    socket.emit("leave_room", { username, room }); // Emit leave room event to the server
-    setShowChat(false); // Set back to login screen
+    socket.emit("leave_room", { username, room });
+    setShowChat(false);
   };
 
   // Listen for updates to the online users list
   useEffect(() => {
     socket.on("update_users", (users) => {
-      setOnlineUsers(users);  // Update the online users list
+      setOnlineUsers(users);
     });
 
     return () => {
-      socket.off("update_users");  // Clean up the event listener when the component unmounts
+      socket.off("update_users");
     };
   }, []);
 
