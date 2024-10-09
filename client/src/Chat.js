@@ -133,7 +133,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                     <div className='absolute inset-x-0 top-0 bottom-20 overflow-y-auto p-4 z-20 space-y-4 scrollbar'>
                         {messageList.map((data, index) => (
                             <div
-                                key={data}
+                                key={data.id ? data.id : index}
                                 ref={index === messageList.length - 1 ? lastMessageRef : null}
                                 className={`flex ${data.isSystem ? 'justify-center' : (username === data.author ? 'justify-end' : 'justify-start')}`}>
                                 <div className={`max-w-[70%] px-6 md:px-7 py-2 ${data.isSystem ? 'bg-[#128C7E] text-white text-center rounded-full' : (username === data.author ? 'bg-[#DCF8C6] text-black rounded-l-full' : 'bg-[#f2f0ed] rounded-r-full text-black')}`}>
