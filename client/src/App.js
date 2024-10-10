@@ -3,14 +3,15 @@ import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
 
-const socket = io.connect("https://stranger-chat-app-server.vercel.app"); // Update to deployed server URL
+// Use your server URL in production
+const socket = io.connect("https://stranger-chat-app-server.vercel.app/"); // Update this URL
 
 const App = () => {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");  // State for error message
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
 
   // Function to join a chat room
   const joinChat = () => {
@@ -19,7 +20,7 @@ const App = () => {
     } else if (room === "") {
       setErrorMessage("Room ID cannot be empty");
     } else {
-      setErrorMessage("");  // Clear error message if everything is valid
+      setErrorMessage(""); // Clear error message if everything is valid
       socket.emit("join_room", { username, room });
       setShowChat(true);
     }
