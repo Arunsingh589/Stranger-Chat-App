@@ -74,17 +74,17 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
 
 
     return (
-        <section className='h-screen'>
+        <section className='h-full'>
             <nav className='w-full bg-black py-4'>
                 <div className='flex justify-between px-4 md:px-6 items-center'>
-                    <p className=' text-white text-sm md:text-2xl'>Hangout with strangers</p>
+                    <p className=' text-white text-[10px] sm:text-sm md:text-2xl'>Hangout with strangers</p>
                     <div className='flex space-x-4 md:space-x-4 items-center'>
                         <div className='flex items-center space-x-1 md:space-x-2'>
-                            <FaUserAlt className='text-white text-sm md:text-lg' />
-                            <p className='text-white text-sm md:text-lg '>{username}</p>
+                            <FaUserAlt className='text-white text-[10px] sm:text-sm md:text-lg' />
+                            <p className='text-white text-[10px] sm:text-sm md:text-lg '>{username}</p>
                         </div>
 
-                        <button onClick={leaveChat} className='bg-[#1aa1f5] px-2 md:px-3 py-1 text-[12px] font-sans md:text-lg text-white rounded-lg'>LEAVE CHAT</button>
+                        <button onClick={leaveChat} className='bg-[#1aa1f5] px-2 md:px-3 py-1 text-[10px] sm:text-sm font-sans md:text-lg text-white rounded-lg'>LEAVE CHAT</button>
 
                     </div>
 
@@ -171,7 +171,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                             placeholder='Write Message'
                             onKeyPress={(e) => { e.key === "Enter" && sendMsg() }}
                         />
-                        <button onClick={sendMsg} className='ml-4 px-3 md:px-5 py-2 md:py-3 bg-[#1aa1f5] rounded-lg text-white'>SEND <GoPaperAirplane className='inline-block ml-1' /></button>
+                        <button onClick={sendMsg} className='ml-4 px-3 md:px-5 py-2 text-[10px] lg:text-lg md:py-3 bg-[#1aa1f5] rounded-lg text-white'>SEND <GoPaperAirplane className='inline-block ml-1' /></button>
                     </div>
 
 
