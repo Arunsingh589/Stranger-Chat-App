@@ -7,6 +7,18 @@ const http = require('http')
 const app = express();
 const server = http.createServer(app);
 
+
+
+// Example route to check if the server is running
+app.get('/', (req, res) => {
+    res.send("Socket.io server is running");
+});
+
+// Example route to get connected users
+app.get('/api/users', (req, res) => {
+    res.json(Object.values(users));
+});
+
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
