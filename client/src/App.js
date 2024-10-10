@@ -3,8 +3,8 @@ import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
 
-// Use your server URL in production
-const socket = io.connect("https://stranger-chat-app-server.vercel.app/"); // Update this URL
+// Make sure this URL matches your server's URL without any trailing slashes
+const socket = io.connect("https://stranger-chat-app-server.vercel.app");
 
 const App = () => {
   const [username, setUsername] = useState("");

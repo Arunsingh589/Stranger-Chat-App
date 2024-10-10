@@ -3,15 +3,13 @@ const cors = require('cors');
 const { Server } = require('socket.io');
 const http = require('http');
 
-// Create an Express application
 const app = express();
 const server = http.createServer(app);
 
-// CORS configuration
+// CORS Configuration
 app.use(cors({
-    origin: "https://stranger-chat-app-client.vercel.app/", // Your client URL
-    methods: ["GET", "POST"],
-    credentials: true,
+    origin: "https://stranger-chat-app-client.vercel.app", // Your client URL on Vercel
+    methods: ["GET", "POST"], // Specify the allowed methods
 }));
 
 // Example route to check if the server is running
@@ -19,21 +17,24 @@ app.get('/', (req, res) => {
     res.send("Socket.io server is running");
 });
 
-// Create a new Socket.IO instance
+// Example route to get connected users
+// app.get('/api/users', (req, res) => {
+//     res.json(Object.values(users));
+// });
+
+// Socket.io setup
 const io = new Server(server, {
     cors: {
-        origin: "https://stranger-chat-app-client.vercel.app/", // Your client URL
+        origin: "https://stranger-chat-app-client.vercel.app", // Your client URL on Vercel
         methods: ["GET", "POST"],
-        credentials: true,
+        credentials: true, // Allow credentials if needed
     }
 });
 
-// Store connected users
 const users = {};
 
-// Handle socket connection
 io.on("connection", (socket) => {
-    console.log(`User Connected: ${socket.id}`);
+    console.log(`User Connected ${socket.id}`);
 
     socket.on("join_room", (data) => {
         const { username, room } = data;
@@ -50,6 +51,7 @@ io.on("connection", (socket) => {
         io.to(room).emit("update_users", Object.values(users).filter(user => user.room === room));
     });
 
+    // When a user leaves the room
     socket.on("leave_room", (data) => {
         const { username, room } = data;
         console.log(`${username} has left the room: ${room}`);
@@ -72,7 +74,8 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        console.log(`User Disconnected: ${socket.id}`);
+        console.log(`User disconnected: ${socket.id}`);
+
         const user = users[socket.id];
         if (user) {
             const { room } = user;
