@@ -3,8 +3,12 @@ import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
 
-const socket = io.connect("http://localhost:5000");
-
+// Dynamically set the socket server URL based on environment
+const socket = io.connect(
+  process.env.NODE_ENV === 'production'
+    ? 'https://stranger-chat-app-server.vercel.app/'  // Replace with your Vercel URL
+    : 'http://localhost:5000'            // Local development URL
+);
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -12,7 +16,6 @@ const App = () => {
   const [showChat, setShowChat] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");  // State for error message
-
 
   // Function to join a chat room
   const joinChat = () => {
