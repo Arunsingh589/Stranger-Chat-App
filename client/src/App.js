@@ -3,12 +3,7 @@ import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
 
-// Dynamically set the socket server URL based on environment
-const socket = io.connect(
-  process.env.NODE_ENV === 'production'
-    ? 'https://stranger-chat-app-server.vercel.app/'  // Replace with your Vercel URL
-    : 'http://localhost:5000'            // Local development URL
-);
+const socket = io.connect("https://stranger-chat-app-server.vercel.app"); // Update to deployed server URL
 
 const App = () => {
   const [username, setUsername] = useState("");
@@ -71,7 +66,7 @@ const App = () => {
 
             <div
               className={`absolute bottom-0 mb-16 bg-white text-black border border-red-500 rounded-md px-4 py-2 transition-opacity duration-300 
-              ${errorMessage ? "visible opacity-100" : "invisible opacity-0"}`}
+                            ${errorMessage ? "visible opacity-100" : "invisible opacity-0"}`}
             >
               {errorMessage}
             </div>
