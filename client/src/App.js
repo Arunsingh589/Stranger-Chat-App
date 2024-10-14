@@ -3,15 +3,16 @@ import io from 'socket.io-client';
 import logo from '../src/images/logo.png';
 import Chat from './Chat';
 
-// Make sure this URL matches your server's URL without any trailing slashes
-const socket = io.connect("https://stranger-chat-app-server.vercel.app");
+const socket = io.connect("http://localhost:5000");
+
 
 const App = () => {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(""); // State for error message
+  const [errorMessage, setErrorMessage] = useState("");  // State for error message
+
 
   // Function to join a chat room
   const joinChat = () => {
@@ -20,7 +21,7 @@ const App = () => {
     } else if (room === "") {
       setErrorMessage("Room ID cannot be empty");
     } else {
-      setErrorMessage(""); // Clear error message if everything is valid
+      setErrorMessage("");  // Clear error message if everything is valid
       socket.emit("join_room", { username, room });
       setShowChat(true);
     }
@@ -67,7 +68,7 @@ const App = () => {
 
             <div
               className={`absolute bottom-0 mb-16 bg-white text-black border border-red-500 rounded-md px-4 py-2 transition-opacity duration-300 
-                            ${errorMessage ? "visible opacity-100" : "invisible opacity-0"}`}
+              ${errorMessage ? "visible opacity-100" : "invisible opacity-0"}`}
             >
               {errorMessage}
             </div>
