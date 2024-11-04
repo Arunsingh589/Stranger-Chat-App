@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 // Example route to check if the server is running
 app.get('/', (req, res) => {
-    res.send("Socket.io server is running");
+    res.json("Socket.io server is running");
 });
 
 // Example route to get connected users
