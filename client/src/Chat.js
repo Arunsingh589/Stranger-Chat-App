@@ -156,11 +156,6 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                         ))}
                     </div>
 
-
-
-
-
-
                     <div className='absolute bottom-0 w-full  flex justify-between items-center p-4 bg-white z-20'>
                         <input
                             value={currentMessage}
