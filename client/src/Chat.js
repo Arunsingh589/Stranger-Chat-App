@@ -74,7 +74,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
 
 
     return (
-        <section className='h-full'>
+        <section className='h-[100svh]'>
             <nav className='w-full bg-black py-4'>
                 <div className='flex justify-between px-4 md:px-6 items-center'>
                     <p className=' text-white text-[10px] sm:text-sm md:text-2xl'>Hangout with strangers</p>
@@ -106,7 +106,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                 </div>
                 {/* Visible in small screen */}
                 {/* Left Section */}
-                <div className={`fixed inset-y-0 left-0  flex md:hidden flex-col w-[70%]  h-full justify-start items-start pt-10 p-4 px-6 bg-gray-900 text-white transition-transform duration-300 z-30 ${isLeftPanelVisible ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+                <div className={`fixed inset-y-0 left-0  flex md:hidden flex-col w-[70%]  h-[100svh] justify-start items-start pt-10 p-4 px-6 bg-gray-900 text-white transition-transform duration-300 z-30 ${isLeftPanelVisible ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
                     <p className='mb-4 md:mb-8 font-bold text-2xl text-skyblue md:text-5xl'>Stranger Chat</p>
                     <p className='text-lg md:text-3xl font-bold mb-4 md:mb-10'>Online Users</p>
                     {onlineUsers.map((user, index) => (

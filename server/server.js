@@ -7,8 +7,6 @@ const http = require('http')
 const app = express();
 const server = http.createServer(app);
 
-
-
 // Example route to check if the server is running
 app.get('/', (req, res) => {
     res.send("Socket.io server is running");
@@ -91,9 +89,7 @@ io.on("connection", (socket) => {
 
 app.use(cors())
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
-
+server.listen(5000, () => console.log("Server is running on port: 5000"));
 
 
 
