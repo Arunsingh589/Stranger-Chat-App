@@ -125,7 +125,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                 </button>
 
                 {/* Right Section */}
-                <div className='w-full md:w-[75%] relative flex h-full  justify-center items-center '>
+                <div className='w-full md:w-[75%] relative flex h-[100svh]  justify-center items-center '>
                     <div className='absolute inset-0 bg-black opacity-50 z-10'></div>
                     <img src={background} className='w-full h-full object-cover z-0' alt="logo" />
 
