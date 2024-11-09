@@ -75,7 +75,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
 
     return (
         <section className='h-screen  overflow-hidden'>
-            <nav className='w-full bg-black py-4'>
+            <nav className='w-full z-30 bg-black py-4'>
                 <div className='flex justify-between px-4 md:px-6 items-center'>
                     <p className=' text-white text-[10px] sm:text-sm md:text-2xl'>Hangout with strangers</p>
                     <div className='flex space-x-4 md:space-x-4 items-center'>
@@ -156,18 +156,17 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                         ))}
                     </div>
 
-                    <div className="fixed bottom-0 w-full flex justify-between items-center p-2 bg-white z-20">
+                    <div className='fixed bottom-0 w-full  flex justify-between items-centers p-4 bg-white z-20'>
                         <input
                             value={currentMessage}
                             onChange={(e) => setCurrentMessage(e.target.value)}
                             type="text"
-                            className="px-4 py-2 flex-grow text-black text-xl placeholder:text-lg md:placeholder:text-xl placeholder:font-sans focus:outline-none border-b-4"
-                            placeholder="Write Message"
+                            className='px-4 py-2 flex-grow text-black  text-xl placeholder:text-lg md:placeholder:text-xl placeholder:font-sans
+                         focus:outline-none  border-b-4'
+                            placeholder='Write Message'
                             onKeyPress={(e) => { e.key === "Enter" && sendMsg() }}
                         />
-                        <button onClick={sendMsg} className="ml-4 px-3 md:px-5 py-2 text-[10px] lg:text-lg md:py-3 bg-[#1aa1f5] rounded-lg text-white">
-                            SEND <GoPaperAirplane className="inline-block ml-1" />
-                        </button>
+                        <button onClick={sendMsg} className='ml-4 px-3 md:px-5 py-2 text-[9px] lg:text-lg md:py-3 bg-[#1aa1f5] rounded-lg text-white'>SEND <GoPaperAirplane className='inline-block ml-1' /></button>
                     </div>
 
 
