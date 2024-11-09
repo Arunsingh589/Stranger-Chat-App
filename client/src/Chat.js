@@ -74,7 +74,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
 
 
     return (
-        <section className='h-[100svh]'>
+        <section className='h-[100lvh]'>
             <nav className='w-full bg-black py-4'>
                 <div className='flex justify-between px-4 md:px-6 items-center'>
                     <p className=' text-white text-[10px] sm:text-sm md:text-2xl'>Hangout with strangers</p>
@@ -106,7 +106,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                 </div>
                 {/* Visible in small screen */}
                 {/* Left Section */}
-                <div className={`fixed inset-y-0 left-0  flex md:hidden flex-col w-[70%]  h-[100svh] justify-start items-start pt-10 p-4 px-6 bg-gray-900 text-white transition-transform duration-300 z-30 ${isLeftPanelVisible ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+                <div className={`fixed inset-y-0 left-0  flex md:hidden flex-col w-[70%]  h-full justify-start items-start pt-10 p-4 px-6 bg-gray-900 text-white transition-transform duration-300 z-30 ${isLeftPanelVisible ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
                     <p className='mb-4 md:mb-8 font-bold text-2xl text-skyblue md:text-5xl'>Stranger Chat</p>
                     <p className='text-lg md:text-3xl font-bold mb-4 md:mb-10'>Online Users</p>
                     {onlineUsers.map((user, index) => (
@@ -125,7 +125,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                 </button>
 
                 {/* Right Section */}
-                <div className='w-full md:w-[75%] relative flex h-[100svh]  justify-center items-center '>
+                <div className='w-full md:w-[75%] relative flex h-full  justify-center items-center '>
                     <div className='absolute inset-0 bg-black opacity-50 z-10'></div>
                     <img src={background} className='w-full h-full object-cover z-0' alt="logo" />
 
@@ -156,7 +156,7 @@ const Chat = ({ socket, username, room, leaveChat, onlineUsers, setShowChat }) =
                         ))}
                     </div>
 
-                    <div className='absolute bottom-0 w-full  flex justify-between items-center p-4 bg-white z-20'>
+                    <div className='absolute bottom-0 w-full  flex justify-between items-centers p-1 md:p-2 bg-white z-20'>
                         <input
                             value={currentMessage}
                             onChange={(e) => setCurrentMessage(e.target.value)}
